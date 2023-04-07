@@ -1,6 +1,6 @@
 package com.criticalgnome.cleanarchitecturedemo.ui.main
 
-import app.cash.turbine.test
+import app.cash.turbine.testIn
 import com.criticalgnome.cleanarchitecturedemo.TestDispatcherProvider
 import com.criticalgnome.cleanarchitecturedemo.ui.main.MainContract.ViewState.PostsLoaded
 import com.criticalgnome.data.exception.TestNotWorkingProperlyException
@@ -8,6 +8,7 @@ import com.criticalgnome.domain.entity.PostModel
 import com.criticalgnome.domain.entity.Result.Success
 import com.criticalgnome.domain.usecase.GetPostsUseCase
 import io.mockk.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -19,13 +20,15 @@ import org.junit.jupiter.api.Test
 class MainViewModelTest {
 
     private val getPostsUseCase = mockk<GetPostsUseCase>()
+    private val dispatcherProvider = TestDispatcherProvider()
+    private val testScope = CoroutineScope(dispatcherProvider.default)
     private lateinit var sut: MainViewModel
 
     @BeforeEach
     fun setUp() {
         sut = MainViewModel(
             getPostsUseCase,
-            TestDispatcherProvider()
+            dispatcherProvider
         )
     }
 
@@ -36,11 +39,9 @@ class MainViewModelTest {
 
         runTest {
             sut.getPosts()
-            sut.viewState.test {
-                val state = awaitItem()
-                if (state is PostsLoaded) assertEquals(listOf(post), state.posts)
-                else throw TestNotWorkingProperlyException()
-            }
+            val state = sut.viewState.testIn(testScope).awaitItem()
+            if (state is PostsLoaded) assertEquals(listOf(post), state.posts)
+            else throw TestNotWorkingProperlyException()
         }
     }
 }
