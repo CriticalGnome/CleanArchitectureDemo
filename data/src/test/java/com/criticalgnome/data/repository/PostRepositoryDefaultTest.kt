@@ -2,6 +2,7 @@ package com.criticalgnome.data.repository
 
 import com.criticalgnome.data.entity.CommentData
 import com.criticalgnome.data.entity.PostData
+import com.criticalgnome.data.exception.TestNotWorkingProperlyException
 import com.criticalgnome.data.mapper.CommentMapper
 import com.criticalgnome.data.mapper.PostMapper
 import com.criticalgnome.data.service.JsonPlaceholderService
@@ -32,7 +33,6 @@ internal class PostRepositoryDefaultTest {
     private val id = 42
     private val errorCode = 404
     private val errorMessage = "Page not found"
-    private val testNotWorkingProperlyException = IllegalStateException("Test not working properly")
 
     @BeforeEach
     fun setUp() {
@@ -70,7 +70,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.getPosts()
                 if (result is Result.Success) assertEquals(listOf(postModel), result.data)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerifyOrder {
@@ -90,7 +90,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.getPost(id)
                 if (result is Result.Success) assertEquals(postModel, result.data)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerifyOrder {
@@ -110,7 +110,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.getPostComments(id)
                 if (result is Result.Success) assertEquals(listOf(commentModel), result.data)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerifyOrder {
@@ -130,7 +130,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.postPosts(listOf(postModel))
                 if (result is Result.Success) assertEquals(listOf(postModel), result.data)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerifyOrder {
@@ -151,7 +151,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.putPost(id, postModel)
                 if (result is Result.Success) assertEquals(postModel, result.data)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerifyOrder {
@@ -173,7 +173,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.deletePost(id)
                 if (result is Result.Success) assertTrue(result.data is Unit)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.deletePost(id) }
@@ -198,7 +198,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.getPosts() }
@@ -218,7 +218,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.getPost(id) }
@@ -238,7 +238,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.getPostComments(id) }
@@ -258,7 +258,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
 
             coVerifyOrder {
@@ -281,7 +281,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
 
             coVerifyOrder {
@@ -304,7 +304,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.deletePost(id) }
@@ -328,7 +328,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.getPosts() }
@@ -347,7 +347,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
             
             coVerify { service.getPost(id) }
@@ -366,7 +366,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
             
             coVerify { service.getPostComments(id) }
@@ -385,7 +385,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
             
             coVerifyOrder { 
@@ -407,7 +407,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
 
             coVerifyOrder {
@@ -429,7 +429,7 @@ internal class PostRepositoryDefaultTest {
                 if (result is Result.Error) {
                     assertEquals(errorCode, result.code)
                     assertEquals(errorMessage, result.message)
-                } else throw testNotWorkingProperlyException
+                } else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.deletePost(id) }
@@ -449,7 +449,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.getPosts()
                 if (result is Result.Exception) assertEquals(throwable, result.throwable)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.getPosts() }
@@ -464,7 +464,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.getPost(id)
                 if (result is Result.Exception) assertEquals(throwable, result.throwable)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.getPost(id) }
@@ -479,7 +479,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.getPostComments(id)
                 if (result is Result.Exception) assertEquals(throwable, result.throwable)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.getPostComments(id) }
@@ -494,7 +494,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.postPosts(listOf(postModel))
                 if (result is Result.Exception) assertEquals(throwable, result.throwable)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerifyOrder {
@@ -512,7 +512,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.putPost(id, postModel)
                 if (result is Result.Exception) assertEquals(throwable, result.throwable)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
             coVerifyOrder {
                 postMapper.map(postModel)
@@ -529,7 +529,7 @@ internal class PostRepositoryDefaultTest {
             runTest {
                 val result = sut.deletePost(id)
                 if (result is Result.Exception) assertEquals(throwable, result.throwable)
-                else throw testNotWorkingProperlyException
+                else throw TestNotWorkingProperlyException()
             }
 
             coVerify { service.deletePost(id) }

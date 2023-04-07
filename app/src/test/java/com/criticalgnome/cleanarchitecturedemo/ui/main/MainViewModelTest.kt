@@ -3,6 +3,7 @@ package com.criticalgnome.cleanarchitecturedemo.ui.main
 import app.cash.turbine.test
 import com.criticalgnome.cleanarchitecturedemo.TestDispatcherProvider
 import com.criticalgnome.cleanarchitecturedemo.ui.main.MainContract.ViewState.PostsLoaded
+import com.criticalgnome.data.exception.TestNotWorkingProperlyException
 import com.criticalgnome.domain.entity.PostModel
 import com.criticalgnome.domain.entity.Result.Success
 import com.criticalgnome.domain.usecase.GetPostsUseCase
@@ -36,8 +37,9 @@ class MainViewModelTest {
         runTest {
             sut.getPosts()
             sut.viewState.test {
-                assertEquals(PostsLoaded(listOf(post)), awaitItem())
-                awaitComplete()
+                val state = awaitItem()
+                if (state is PostsLoaded) assertEquals(listOf(post), state.posts)
+                else throw TestNotWorkingProperlyException()
             }
         }
     }
