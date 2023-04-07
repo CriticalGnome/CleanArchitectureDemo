@@ -2,6 +2,7 @@ package com.criticalgnome.cleanarchitecturedemo.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.criticalgnome.cleanarchitecturedemo.databinding.ActivityMainBinding
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenStarted {
             viewModel.viewState.collectLatest { state ->
                 when (state) {
-                    is PostsLoaded -> {}
+                    is PostsLoaded -> Toast.makeText(this@MainActivity, state.posts[0].body, Toast.LENGTH_SHORT).show()
                     is ErrorHandled -> {}
                     is ExceptionHandled -> {}
                     null -> {}
