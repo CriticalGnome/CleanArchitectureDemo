@@ -1,5 +1,7 @@
 package com.criticalgnome.data.repository
 
+import com.criticalgnome.data.db.CommentDao
+import com.criticalgnome.data.db.PostDao
 import com.criticalgnome.data.entity.CommentData
 import com.criticalgnome.data.entity.PostData
 import com.criticalgnome.data.exception.TestNotWorkingProperlyException
@@ -22,6 +24,8 @@ import retrofit2.Response
 internal class PostRepositoryDefaultTest {
 
     private val service = mockk<JsonPlaceholderService>()
+    private val postDao = mockk<PostDao>()
+    private val commentDao = mockk<CommentDao>()
     private val postMapper = mockk<PostMapper>()
     private val commentMapper = mockk<CommentMapper>()
     private lateinit var sut: PostRepository
@@ -38,6 +42,8 @@ internal class PostRepositoryDefaultTest {
     fun setUp() {
         sut = PostRepositoryDefault(
             service,
+            postDao,
+            commentDao,
             postMapper,
             commentMapper
         )

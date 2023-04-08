@@ -1,5 +1,7 @@
 package com.criticalgnome.data.repository
 
+import com.criticalgnome.data.db.CommentDao
+import com.criticalgnome.data.db.PostDao
 import com.criticalgnome.data.entity.CommentData
 import com.criticalgnome.data.entity.PostData
 import com.criticalgnome.data.mapper.CommentMapper
@@ -14,6 +16,8 @@ import javax.inject.Inject
 
 class PostRepositoryDefault @Inject constructor(
     private val service: JsonPlaceholderService,
+    private val postDao: PostDao,
+    private val commentDao: CommentDao,
     private val postMapper: PostMapper,
     private val commentMapper: CommentMapper
 ) : PostRepository {

@@ -1,6 +1,7 @@
 package com.criticalgnome.data.mapper
 
 import com.criticalgnome.data.entity.PostData
+import com.criticalgnome.data.entity.PostRoom
 import com.criticalgnome.domain.entity.PostModel
 
 class PostMapperDefault : PostMapper {
@@ -20,6 +21,24 @@ class PostMapperDefault : PostMapper {
             id = postModel.id,
             title = postModel.title,
             body = postModel.body
+        )
+    }
+
+    override fun dbMap(postData: PostData): PostRoom {
+        return PostRoom(
+            userId = postData.userId,
+            id = postData.id,
+            title = postData.title,
+            body = postData.body
+        )
+    }
+
+    override fun dbMap(postRoom: PostRoom): PostModel {
+        return PostModel(
+            userId = postRoom.userId,
+            id = postRoom.id,
+            title = postRoom.title,
+            body = postRoom.body
         )
     }
 }

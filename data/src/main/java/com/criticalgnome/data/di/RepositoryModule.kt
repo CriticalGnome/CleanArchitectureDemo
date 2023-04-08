@@ -1,5 +1,7 @@
 package com.criticalgnome.data.di
 
+import com.criticalgnome.data.db.CommentDao
+import com.criticalgnome.data.db.PostDao
 import com.criticalgnome.data.mapper.CommentMapper
 import com.criticalgnome.data.mapper.PostMapper
 import com.criticalgnome.data.repository.PostRepositoryDefault
@@ -19,11 +21,15 @@ object RepositoryModule {
     @Singleton
     fun providePostRepository(
         jsonPlaceholderService: JsonPlaceholderService,
+        postDao: PostDao,
+        commentDao: CommentDao,
         postMapper: PostMapper,
         commentMapper: CommentMapper
     ) : PostRepository {
         return PostRepositoryDefault(
             jsonPlaceholderService,
+            postDao,
+            commentDao,
             postMapper,
             commentMapper
         )
