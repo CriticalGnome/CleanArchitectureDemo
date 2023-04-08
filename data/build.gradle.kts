@@ -58,6 +58,11 @@ dependencies {
     implementation(Libraries.moshiConverter)
     // OkHttp
     implementation(Libraries.loggingInterceptor)
+    // Room
+    implementation(Libraries.room)
+    implementation(Libraries.roomKtx)
+    kapt(Libraries.roomCompiler)
+
     // Junit 5
     testImplementation(TestLibraries.junitJupiterApi)
     testImplementation(TestLibraries.junitJupiterParams)
@@ -66,7 +71,10 @@ dependencies {
     testImplementation(TestLibraries.coroutinesTest)
     // Turbine
     testImplementation(TestLibraries.turbine)
+    // MockK
     testImplementation(TestLibraries.mockk)
+    // Room
+    testImplementation(TestLibraries.roomTesting)
     // Core Android
     androidTestImplementation(TestLibraries.androidxTestRunner)
     // Junit 5 Android

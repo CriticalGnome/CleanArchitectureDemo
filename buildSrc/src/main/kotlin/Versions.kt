@@ -12,6 +12,7 @@ object Versions {
     const val dagger = "2.44"
     const val retrofit = "2.9.0"
     const val okhttp = "4.10.0"
+    const val room = "2.5.1"
     // Test libraries
     const val androidTestRunner = "1.5.2"
     const val junit5 = "5.8.2"

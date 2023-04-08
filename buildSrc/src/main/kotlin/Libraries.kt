@@ -18,4 +18,8 @@ object Libraries {
     val moshiConverter by lazy { "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}" }
     // OkHttp
     val loggingInterceptor by lazy { "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}" }
+    // Room
+    val room by lazy { "androidx.room:room-runtime:${Versions.room}" }
+    val roomKtx by lazy { "androidx.room:room-ktx:${Versions.room}" }
+    val roomCompiler by lazy { "androidx.room:room-compiler:${Versions.room}" }
 }

@@ -14,4 +14,6 @@ object TestLibraries {
     // MockK
     val mockk by lazy { "io.mockk:mockk:${Versions.mockk}" }
     val mockkAndroid by lazy { "io.mockk:mockk-android:${Versions.mockk}" }
+    // Room
+    val roomTesting by lazy { "androidx.room:room-testing:${Versions.room}" }
 }
