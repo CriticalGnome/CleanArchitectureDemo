@@ -17,7 +17,7 @@ interface PostDao {
     @Update
     suspend fun updatePosts(vararg posts: PostRoom)
 
-    @Query("DELETE * FROM posts WHERE id = :id")
+    @Query("DELETE FROM posts WHERE id = :id")
     suspend fun deleteById(id: Int)
 
     @Delete

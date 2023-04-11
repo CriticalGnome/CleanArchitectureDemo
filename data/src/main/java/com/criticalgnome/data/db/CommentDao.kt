@@ -17,7 +17,7 @@ interface CommentDao {
     @Update
     suspend fun updateComments(vararg comments: CommentRoom)
 
-    @Query("DELETE * FROM comments WHERE id = :id")
+    @Query("DELETE FROM comments WHERE id = :id")
     suspend fun deleteById(id: Int)
 
     @Delete
