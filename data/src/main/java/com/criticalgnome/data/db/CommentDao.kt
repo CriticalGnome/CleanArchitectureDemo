@@ -11,6 +11,9 @@ interface CommentDao {
     @Query("SELECT * FROM comments WHERE id = :id")
     suspend fun getComment(id: Int): CommentRoom
 
+    @Query("SELECT * FROM comments WHERE post_id = :postId")
+    suspend fun getCommentsByPostId(postId: Int): List<CommentRoom>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertComments(vararg comments: CommentRoom)
 
