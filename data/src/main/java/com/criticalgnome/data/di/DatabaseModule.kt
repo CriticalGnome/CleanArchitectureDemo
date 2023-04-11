@@ -25,6 +25,8 @@ object DatabaseModule {
             context,
             JsonPlaceholderDB::class.java,
             "json_placeholder_db"
+        ).addMigrations(
+            JsonPlaceholderDB.MIGRATION_1_2
         ).build()
     }
 

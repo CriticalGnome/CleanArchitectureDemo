@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "comments")
 data class CommentRoom(
 
-    @ColumnInfo(name = "postId")
+    @ColumnInfo(name = "post_id")
     val postId: Int,
 
     @PrimaryKey
