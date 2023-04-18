@@ -3,6 +3,7 @@
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
+    id(Plugins.kotlinSerialization)
     id(Plugins.kapt)
     id(Plugins.hiltAndroid)
     id(Plugins.androidJunit5)
@@ -51,6 +52,7 @@ dependencies {
     implementation(Libraries.androidxCore)
     implementation(Libraries.androidxAppcompat)
     implementation(Libraries.material)
+    implementation(Libraries.kotlinSerialization)
     // Dagger
     implementation(Libraries.dagger)
     kapt(Libraries.daggerCompiler)
@@ -60,6 +62,7 @@ dependencies {
     // Retrofit
     implementation(Libraries.retrofit)
     implementation(Libraries.moshiConverter)
+    implementation(Libraries.kotlinSerializationConverter)
     // OkHttp
     implementation(Libraries.loggingInterceptor)
     // Room

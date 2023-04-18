@@ -8,9 +8,11 @@ object Versions {
     const val appcompat = "1.6.1"
     const val constraintLayout = "2.1.4"
     const val androidFragment = "1.5.6"
+    const val kotlinSerialization = "1.2.2"
     const val material = "1.8.0"
     const val dagger = "2.44"
     const val retrofit = "2.9.0"
+    const val kotlinSerializationConverter = "0.8.0"
     const val okhttp = "4.10.0"
     const val room = "2.5.1"
     // Test libraries
