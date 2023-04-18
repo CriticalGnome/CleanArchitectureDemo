@@ -2,10 +2,14 @@ package com.criticalgnome.data.di
 
 import com.criticalgnome.data.BuildConfig
 import com.criticalgnome.data.service.JsonPlaceholderService
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
@@ -26,11 +30,23 @@ object NetworkModule {
     @Qualifier
     annotation class Moshi
 
+    @Retention(AnnotationRetention.BINARY)
+    @Qualifier
+    annotation class KotlinSerialization
+
     @Provides
     @Singleton
     @Moshi
-    fun provideConverterFactory(): Converter.Factory {
+    fun provideMoshiConverterFactory(): Converter.Factory {
         return MoshiConverterFactory.create()
+    }
+
+    @OptIn(ExperimentalSerializationApi::class)
+    @Provides
+    @Singleton
+    @KotlinSerialization
+    fun provideKotlinSerializationConverterFactory(): Converter.Factory {
+        return Json.asConverterFactory("application/json".toMediaType())
     }
 
     @Provides
@@ -54,7 +70,7 @@ object NetworkModule {
     @JsonPlaceholder
     fun provideRetrofit(
         client: OkHttpClient,
-        @Moshi factory: Converter.Factory
+        @KotlinSerialization factory: Converter.Factory
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(JsonPlaceholderService.BASE_URL)
