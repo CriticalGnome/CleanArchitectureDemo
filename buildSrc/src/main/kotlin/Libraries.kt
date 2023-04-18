@@ -5,6 +5,7 @@ object Libraries {
     val anddroidxConstraint by lazy { "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}" }
     val androidxFragment by lazy { "androidx.fragment:fragment-ktx:${Versions.androidFragment}" }
     val material by lazy { "com.google.android.material:material:${Versions.material}" }
+    val kotlinSerialization by lazy { "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinSerialization}" }
     // Coroutines
     val coroutinesCore by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}" }
     // Dagger
@@ -16,6 +17,7 @@ object Libraries {
     // Retrofit
     val retrofit by lazy { "com.squareup.retrofit2:retrofit:${Versions.retrofit}" }
     val moshiConverter by lazy { "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}" }
+    val kotlinSerializationConverter by lazy { "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.kotlinSerializationConverter}" }
     // OkHttp
     val loggingInterceptor by lazy { "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}" }
     // Room
