@@ -1,6 +1,6 @@
 object Versions {
     // Plugins
-    const val android = "7.4.2"
+    const val android = "8.0.0"
     const val kotlin = "1.8.20"
     const val junit5Plugin = "1.8.2.1"
     // Libraries
