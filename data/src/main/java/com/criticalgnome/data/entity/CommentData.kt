@@ -1,22 +1,24 @@
 package com.criticalgnome.data.entity
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CommentData(
 
-    @Json(name = "postId")
+    @SerialName("postId")
     val postId: Int,
 
-    @Json(name = "id")
+    @SerialName("id")
     val id: Int,
 
-    @Json(name = "name")
+    @SerialName("name")
     val name: String,
 
-    @Json(name = "email")
+    @SerialName("email")
     val email: String,
 
-    @Json(name = "body")
+    @SerialName("body")
     val body: String
 
 )
