@@ -4,8 +4,10 @@ import com.criticalgnome.data.db.CommentDao
 import com.criticalgnome.data.db.PostDao
 import com.criticalgnome.data.mapper.CommentMapper
 import com.criticalgnome.data.mapper.PostMapper
+import com.criticalgnome.data.repository.CommentRepositoryDefault
 import com.criticalgnome.data.repository.PostRepositoryDefault
 import com.criticalgnome.data.service.JsonPlaceholderService
+import com.criticalgnome.domain.repository.CommentRepository
 import com.criticalgnome.domain.repository.PostRepository
 import dagger.Module
 import dagger.Provides
@@ -31,6 +33,18 @@ object RepositoryModule {
             postDao,
             commentDao,
             postMapper,
+            commentMapper
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideCommentRepository(
+        jsonPlaceholderService: JsonPlaceholderService,
+        commentMapper: CommentMapper
+    ) : CommentRepository {
+        return CommentRepositoryDefault(
+            jsonPlaceholderService,
             commentMapper
         )
     }
