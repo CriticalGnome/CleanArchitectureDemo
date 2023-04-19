@@ -34,6 +34,16 @@ interface JsonPlaceholderService {
 
     // endregion
 
+    // region comments
+
+    @GET("/comments")
+    suspend fun getComments(): Response<List<CommentData>>
+
+    @GET("/comments/{id}")
+    suspend fun getComment(@Path("id") id: Int): Response<CommentData>
+
+    // endregion
+
     companion object {
         const val BASE_URL = "https://jsonplaceholder.typicode.com"
     }
