@@ -34,4 +34,5 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getPosts()
     }
+    // TEST
 }
