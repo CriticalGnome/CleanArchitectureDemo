@@ -149,7 +149,7 @@ internal class CommentRepositoryDefaultTest {
         fun getComments() {
             val throwable = mockk<HttpException>()
             every { throwable.code() } returns errorCode
-            every { throwable.message() } returns errorMessage
+            every { throwable.message } returns errorMessage
             coEvery { service.getComments() } throws throwable
 
             runTest {
@@ -169,7 +169,7 @@ internal class CommentRepositoryDefaultTest {
         fun getComment() {
             val throwable = mockk<HttpException>()
             every { throwable.code() } returns errorCode
-            every { throwable.message() } returns errorMessage
+            every { throwable.message } returns errorMessage
             coEvery { service.getComment(id) } throws throwable
 
             runTest {
