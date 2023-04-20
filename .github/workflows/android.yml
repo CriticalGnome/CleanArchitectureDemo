@@ -9,13 +9,79 @@ on:
       - 'master'
 
 jobs:
-  build:
 
+  lint:
+    name: Android Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Android Lint
+        run: ./gradlew lintDebug
+
+      - name: Lint Report
+        uses: yutailang0119/action-android-lint@v3
+        with:
+          report-path: build/reports/*.xml # Support glob patterns by https://www.npmjs.com/package/@actions/glob
+        continue-on-error: false # If annotations contain error of severity, action-android-lint exit 1.
+
+  unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code to specific branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew testDebugUnitTest
+
+      - name: Android Test Report
+        uses: asadmansr/android-test-report-action@v1.2.0
+        if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
+
+  build:
+    name: Build Artefact
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout the code to specific branch
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         ref: ${{ github.event.inputs.branch }}
 
@@ -29,7 +95,7 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v2
       
-    - name: Setup cashe  
+    - name: Setup cache
       uses: actions/cache@v2
       with:
         path: |
@@ -42,8 +108,17 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
-    - name: Build with Gradle
-      run: ./gradlew build
-      
     - name: Generate app bundle
-      run: ./gradlew app:bundleRelease --stacktrace
+      run: ./gradlew app:bundleDebug --stacktrace
+
+  upload:
+    needs: [ build ]
+    name: Upload the signed artifact
+    runs-on: self-hosted
+
+    steps:
+      - name: Upload Bundle
+        uses: actions/upload-artifact@v2
+        with:
+          name: signed_app_bundle
+          path: app/build/outputs/bundle/release/app-debug.aab
