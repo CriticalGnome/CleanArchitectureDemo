@@ -110,15 +110,3 @@ jobs:
       
     - name: Generate app bundle
       run: ./gradlew app:bundleDebug --stacktrace
-
-  upload:
-    needs: [ build ]
-    name: Upload the signed artifact
-    runs-on: self-hosted
-
-    steps:
-      - name: Upload Bundle
-        uses: actions/upload-artifact@v2
-        with:
-          name: signed_app_bundle
-          path: app/build/outputs/bundle/release/app-debug.aab
