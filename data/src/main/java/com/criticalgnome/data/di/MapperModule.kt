@@ -8,6 +8,8 @@ import com.criticalgnome.data.mapper.CompanyMapper
 import com.criticalgnome.data.mapper.CompanyMapperDefault
 import com.criticalgnome.data.mapper.GeoMapper
 import com.criticalgnome.data.mapper.GeoMapperDefault
+import com.criticalgnome.data.mapper.PhotoMapper
+import com.criticalgnome.data.mapper.PhotoMapperDefault
 import com.criticalgnome.data.mapper.PostMapper
 import com.criticalgnome.data.mapper.PostMapperDefault
 import com.criticalgnome.data.mapper.TodoMapper
@@ -70,5 +72,11 @@ object MapperModule {
     @Singleton
     fun provideTodoMapper(): TodoMapper {
         return TodoMapperDefault()
+    }
+
+    @Provides
+    @Singleton
+    fun providePhotoMapper(): PhotoMapper {
+        return PhotoMapperDefault()
     }
 }
