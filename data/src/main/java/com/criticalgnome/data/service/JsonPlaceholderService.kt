@@ -1,6 +1,7 @@
 package com.criticalgnome.data.service
 
 import com.criticalgnome.data.entity.CommentData
+import com.criticalgnome.data.entity.PhotoData
 import com.criticalgnome.data.entity.PostData
 import com.criticalgnome.data.entity.TodoData
 import com.criticalgnome.data.entity.UserData
@@ -63,6 +64,16 @@ interface JsonPlaceholderService {
 
     @GET("/todos/{id}")
     suspend fun getTodo(@Path("id") id: Int): Response<TodoData>
+
+    // endregion
+
+    // region photos
+
+    @GET("/photos")
+    suspend fun getPhotos(): Response<List<PhotoData>>
+
+    @GET("/photos/{id}")
+    suspend fun getPhoto(@Path("id") id: Int): Response<PhotoData>
 
     // endregion
 
