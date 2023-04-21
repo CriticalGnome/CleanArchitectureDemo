@@ -10,6 +10,8 @@ import com.criticalgnome.data.mapper.GeoMapper
 import com.criticalgnome.data.mapper.GeoMapperDefault
 import com.criticalgnome.data.mapper.PostMapper
 import com.criticalgnome.data.mapper.PostMapperDefault
+import com.criticalgnome.data.mapper.TodoMapper
+import com.criticalgnome.data.mapper.TodoMapperDefault
 import com.criticalgnome.data.mapper.UserMapper
 import com.criticalgnome.data.mapper.UserMapperDefault
 import dagger.Module
@@ -62,5 +64,11 @@ object MapperModule {
             addressMapper,
             companyMapper
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideTodoMapper(): TodoMapper {
+        return TodoMapperDefault()
     }
 }
