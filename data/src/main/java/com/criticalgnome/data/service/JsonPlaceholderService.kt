@@ -2,6 +2,7 @@ package com.criticalgnome.data.service
 
 import com.criticalgnome.data.entity.CommentData
 import com.criticalgnome.data.entity.PostData
+import com.criticalgnome.data.entity.TodoData
 import com.criticalgnome.data.entity.UserData
 import retrofit2.Response
 import retrofit2.http.Body
@@ -52,6 +53,18 @@ interface JsonPlaceholderService {
 
     @GET("/users/{id}")
     suspend fun getUser(@Path("id") id: Int): Response<UserData>
+
+    // endregion
+
+    // region todos
+
+    @GET("/todos")
+    suspend fun getTodos(): Response<List<TodoData>>
+
+    @GET("/todos/{id}")
+    suspend fun getTodo(@Path("id") id: Int): Response<TodoData>
+
+    // endregion
 
     companion object {
         const val BASE_URL = "https://jsonplaceholder.typicode.com"
