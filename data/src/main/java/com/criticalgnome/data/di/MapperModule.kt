@@ -2,6 +2,8 @@ package com.criticalgnome.data.di
 
 import com.criticalgnome.data.mapper.AddressMapper
 import com.criticalgnome.data.mapper.AddressMapperDefault
+import com.criticalgnome.data.mapper.AlbumMapper
+import com.criticalgnome.data.mapper.AlbumMapperDefault
 import com.criticalgnome.data.mapper.CommentMapper
 import com.criticalgnome.data.mapper.CommentMapperDefault
 import com.criticalgnome.data.mapper.CompanyMapper
@@ -78,5 +80,11 @@ object MapperModule {
     @Singleton
     fun providePhotoMapper(): PhotoMapper {
         return PhotoMapperDefault()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAlbumMapper(): AlbumMapper {
+        return AlbumMapperDefault()
     }
 }
