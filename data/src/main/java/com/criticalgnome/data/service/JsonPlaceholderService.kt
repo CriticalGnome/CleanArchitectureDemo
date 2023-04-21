@@ -2,6 +2,7 @@ package com.criticalgnome.data.service
 
 import com.criticalgnome.data.entity.CommentData
 import com.criticalgnome.data.entity.PostData
+import com.criticalgnome.data.entity.UserData
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -43,6 +44,14 @@ interface JsonPlaceholderService {
     suspend fun getComment(@Path("id") id: Int): Response<CommentData>
 
     // endregion
+
+    // region users
+
+    @GET("/users")
+    suspend fun getUsers(): Response<List<UserData>>
+
+    @GET("/users/{id}")
+    suspend fun getUser(@Path("id") id: Int): Response<UserData>
 
     companion object {
         const val BASE_URL = "https://jsonplaceholder.typicode.com"

@@ -187,7 +187,7 @@ internal class PostRepositoryDefaultTest {
     }
 
     @Nested
-    @DisplayName("GIVEN error response  THEN returns Error")
+    @DisplayName("GIVEN error response THEN returns Error")
     inner class ErrorResponse {
 
         @Test
