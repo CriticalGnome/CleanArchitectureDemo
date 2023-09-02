@@ -6,7 +6,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.criticalgnome.cleanarchitecturedemo.databinding.ActivityMainBinding
+import com.criticalgnome.cleanarchitecturedemo.databinding.ItemMainBinding
+import com.criticalgnome.cleanarchitecturedemo.ui.adapter.dsl.model
+import com.criticalgnome.cleanarchitecturedemo.ui.adapter.dsl.recyclerViewAdapter
 import com.criticalgnome.cleanarchitecturedemo.ui.main.MainContract.ViewState.*
+import com.criticalgnome.domain.entity.PostModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -21,10 +25,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.mainRecycler.adapter = recyclerViewAdapter {
+            define()
+                .viewHolderOf(ItemMainBinding::inflate)
+                .couldBeBoundTo<PostModel> { post ->
+                    postTitle.text = post.title
+                    postBody.text = post.body
+                    root.setOnClickListener { Toast.makeText(this@MainActivity, post.title, Toast.LENGTH_SHORT).show() }
+                }
+        }
+
         lifecycleScope.launchWhenStarted {
             viewModel.viewState.collectLatest { state ->
                 when (state) {
-                    is PostsLoaded -> Toast.makeText(this@MainActivity, state.posts[0].body, Toast.LENGTH_SHORT).show()
+                    is PostsLoaded -> binding.mainRecycler.adapter?.model = state.posts
                     is ErrorHandled -> {}
                     is ExceptionHandled -> {}
                     null -> {}
