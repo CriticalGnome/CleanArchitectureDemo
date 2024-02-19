@@ -1,6 +1,6 @@
 [versions]
 
-target-sdk = "33"
+target-sdk = "34"
 min-sdk = "24"
 version-code = "1"
 version-name = "1.0"
