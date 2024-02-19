@@ -1,16 +1,12 @@
 plugins {
-    id(Plugins.javaLibrary)
-    id(Plugins.kotlinJvm)
-    id(Plugins.kapt)
+    id(libs.plugins.java.library.get().pluginId)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.jvm)
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
-}
-
-kapt {
-    correctErrorTypes = true
 }
 
 tasks.test {
@@ -19,17 +15,17 @@ tasks.test {
 
 dependencies {
     // Coroutines
-    implementation(Libraries.coroutinesCore)
+    implementation(libs.kotlinx.coroutines.core)
     // Dagger
-    implementation(Libraries.dagger)
-    kapt(Libraries.daggerCompiler)
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
     // Junit 5
-    testImplementation(TestLibraries.junitJupiterApi)
-    testRuntimeOnly(TestLibraries.junitJupiterEngine)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
     // Coroutines
-    testImplementation(TestLibraries.coroutinesTest)
+    testImplementation(libs.kotlinx.coroutines.test)
     // Turbine
-    testImplementation(TestLibraries.turbine)
+    testImplementation(libs.turbine)
     // MockK
-    testImplementation(TestLibraries.mockk)
+    testImplementation(libs.mockk)
 }

@@ -1,23 +1,23 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id(Plugins.androidApplication)
-    id(Plugins.kotlinAndroid)
-    id(Plugins.kapt)
-    id(Plugins.hiltAndroid)
-    id(Plugins.androidJunit5)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.junit5)
 }
 
 android {
-    namespace = Application.appName
-    compileSdk = Application.currentSdk
+    namespace = "com.criticalgnome.cleanarchitecturedemo"
+    compileSdk = libs.versions.target.sdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.criticalgnome.cleanarchitecturedemo"
-        minSdk = Application.minSdk
-        targetSdk = Application.currentSdk
-        versionCode = Application.versionCode
-        versionName = Application.versionName
+        minSdk = libs.versions.min.sdk.get().toInt()
+        targetSdk = libs.versions.target.sdk.get().toInt()
+        versionCode = libs.versions.version.code.get().toInt()
+        versionName = libs.versions.version.name.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["runnerBuilder"] = "de.mannodermaus.junit5.AndroidJUnit5Builder"
@@ -44,42 +44,38 @@ android {
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
     // Modules
     implementation(project(mapOf("path" to ":domain")))
     implementation(project(mapOf("path" to ":data")))
     // Core
-    implementation(Libraries.androidxCore)
-    implementation(Libraries.androidxAppcompat)
-    implementation(Libraries.anddroidxConstraint)
-    implementation(Libraries.androidxFragment)
-    implementation(Libraries.material)
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.constraintlayout)
+    implementation(libs.fragment.ktx)
+    implementation(libs.material)
     // Dagger
-    implementation(Libraries.dagger)
-    kapt(Libraries.daggerCompiler)
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
     // Hilt
-    implementation(Libraries.hilt)
-    kapt(Libraries.hiltCompiler)
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
     // Junit 5
-    testImplementation(TestLibraries.junitJupiterApi)
-    testImplementation(TestLibraries.junitJupiterParams)
-    testRuntimeOnly(TestLibraries.junitJupiterEngine)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.params)
+    testRuntimeOnly(libs.junit.jupiter.engine)
     // Coroutines
-    testImplementation(TestLibraries.coroutinesTest)
+    testImplementation(libs.kotlinx.coroutines.test)
     // Turbine
-    testImplementation(TestLibraries.turbine)
+    testImplementation(libs.turbine)
     // MockK
-    testImplementation(TestLibraries.mockk)
+    testImplementation(libs.mockk)
     // Core Android
-    androidTestImplementation(TestLibraries.androidxTestRunner)
+    androidTestImplementation(libs.runner)
     // Junit 5 Android
-    androidTestImplementation(TestLibraries.junitJupiterApi)
-    androidTestImplementation(TestLibraries.junitAndroidCore)
-    androidTestRuntimeOnly(TestLibraries.junitAndroidTestRunner)
+    androidTestImplementation(libs.junit.jupiter.api)
+    androidTestImplementation(libs.android.test.core)
+    androidTestRuntimeOnly(libs.android.test.runner)
     // MockK Android
-    androidTestImplementation(TestLibraries.mockkAndroid)
+    androidTestImplementation(libs.mockk.android)
 }
