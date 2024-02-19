@@ -1,20 +1,20 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id(Plugins.androidLibrary)
-    id(Plugins.kotlinAndroid)
-    id(Plugins.kotlinSerialization)
-    id(Plugins.kapt)
-    id(Plugins.hiltAndroid)
-    id(Plugins.androidJunit5)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.junit5)
 }
 
 android {
-    namespace = Application.dataName
-    compileSdk = Application.currentSdk
+    namespace = "com.criticalgnome.data"
+    compileSdk = libs.versions.target.sdk.get().toInt()
 
     defaultConfig {
-        minSdk = Application.minSdk
+        minSdk = libs.versions.min.sdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["runnerBuilder"] = "de.mannodermaus.junit5.AndroidJUnit5Builder"
@@ -41,56 +41,49 @@ android {
     }
 }
 
-kapt {
-    correctErrorTypes = true
-    arguments {
-        arg("room.schemaLocation", "$projectDir/schemas")
-    }
-}
-
 dependencies {
     // Modules
     implementation(project(mapOf("path" to ":domain")))
     // Core
-    implementation(Libraries.androidxCore)
-    implementation(Libraries.androidxAppcompat)
-    implementation(Libraries.material)
-    implementation(Libraries.kotlinSerialization)
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.kotlinx.serialization.json)
     // Dagger
-    implementation(Libraries.dagger)
-    kapt(Libraries.daggerCompiler)
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
     // Hilt
-    implementation(Libraries.hilt)
-    kapt(Libraries.hiltCompiler)
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
     // Retrofit
-    implementation(Libraries.retrofit)
-    implementation(Libraries.moshiConverter)
-    implementation(Libraries.kotlinSerializationConverter)
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
     // OkHttp
-    implementation(Libraries.loggingInterceptor)
+    implementation(libs.logging.interceptor)
     // Room
-    implementation(Libraries.room)
-    implementation(Libraries.roomKtx)
-    kapt(Libraries.roomCompiler)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     // Junit 5
-    testImplementation(TestLibraries.junitJupiterApi)
-    testImplementation(TestLibraries.junitJupiterParams)
-    testRuntimeOnly(TestLibraries.junitJupiterEngine)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.params)
+    testRuntimeOnly(libs.junit.jupiter.engine)
     // Coroutines
-    testImplementation(TestLibraries.coroutinesTest)
+    testImplementation(libs.kotlinx.coroutines.test)
     // Turbine
-    testImplementation(TestLibraries.turbine)
+    testImplementation(libs.turbine)
     // MockK
-    testImplementation(TestLibraries.mockk)
+    testImplementation(libs.mockk)
     // Room
-    testImplementation(TestLibraries.roomTesting)
+    testImplementation(libs.room.testing)
     // Core Android
-    androidTestImplementation(TestLibraries.androidxTestRunner)
+    androidTestImplementation(libs.runner)
     // Junit 5 Android
-    androidTestImplementation(TestLibraries.junitJupiterApi)
-    androidTestImplementation(TestLibraries.junitAndroidCore)
-    androidTestRuntimeOnly(TestLibraries.junitAndroidTestRunner)
+    androidTestImplementation(libs.junit.jupiter.api)
+    androidTestImplementation(libs.android.test.core)
+    androidTestRuntimeOnly(libs.android.test.runner)
     // MockK Android
-    androidTestImplementation(TestLibraries.mockkAndroid)
+    androidTestImplementation(libs.mockk.android)
 }
