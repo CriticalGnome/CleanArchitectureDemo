@@ -5,7 +5,7 @@
 Which versions of project are currently being supported with security updates.
 
 | Version | Supported          |
-| ------- | ------------------ |
+|---------|--------------------|
 | x.x.x   | :white_check_mark: |
 <!--
 | 5.0.x   | :x:                |
