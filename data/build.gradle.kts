@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.android.library)
@@ -46,8 +44,6 @@ dependencies {
     implementation(project(mapOf("path" to ":domain")))
     // Core
     implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
     implementation(libs.kotlinx.serialization.json)
     // Dagger
     implementation(libs.dagger)

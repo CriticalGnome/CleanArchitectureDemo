@@ -4,7 +4,9 @@ import com.criticalgnome.data.entity.TodoData
 import com.criticalgnome.data.exception.TestNotWorkingProperlyException
 import com.criticalgnome.data.mapper.TodoMapper
 import com.criticalgnome.data.service.JsonPlaceholderService
-import com.criticalgnome.domain.entity.Result.*
+import com.criticalgnome.domain.entity.Result.Error
+import com.criticalgnome.domain.entity.Result.Exception
+import com.criticalgnome.domain.entity.Result.Success
 import com.criticalgnome.domain.entity.TodoModel
 import com.criticalgnome.domain.repository.TodoRepository
 import io.mockk.coEvery
@@ -13,10 +15,9 @@ import io.mockk.coVerifyOrder
 import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -24,7 +25,6 @@ import org.junit.jupiter.api.Test
 import retrofit2.HttpException
 import retrofit2.Response
 
-@OptIn(ExperimentalCoroutinesApi::class)
 internal class TodoRepositoryDefaultTest {
 
     private val service = mockk<JsonPlaceholderService>()
