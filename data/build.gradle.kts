@@ -46,8 +46,6 @@ dependencies {
     implementation(project(mapOf("path" to ":domain")))
     // Core
     implementation(libs.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
     implementation(libs.kotlinx.serialization.json)
     // Dagger
     implementation(libs.dagger)
@@ -60,7 +58,7 @@ dependencies {
     implementation(libs.converter.moshi)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     // OkHttp
-    implementation(libs.logging.interceptor)
+    debugImplementation(libs.logging.interceptor)
     // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
