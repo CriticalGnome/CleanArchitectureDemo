@@ -1,6 +1,5 @@
 package com.criticalgnome.data.di
 
-import com.criticalgnome.data.BuildConfig
 import com.criticalgnome.data.service.JsonPlaceholderService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -11,7 +10,6 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -47,22 +45,6 @@ object NetworkModule {
     @KotlinSerialization
     fun provideKotlinSerializationConverterFactory(): Converter.Factory {
         return Json.asConverterFactory("application/json".toMediaType())
-    }
-
-    @Provides
-    @Singleton
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
-    }
-
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
-    ): OkHttpClient {
-        return OkHttpClient.Builder().apply {
-            if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor)
-        }.build()
     }
 
     @Provides

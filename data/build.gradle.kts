@@ -56,7 +56,7 @@ dependencies {
     implementation(libs.converter.moshi)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     // OkHttp
-    implementation(libs.logging.interceptor)
+    debugImplementation(libs.logging.interceptor)
     // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
