@@ -22,6 +22,10 @@ dependencies {
     // Junit 5
     testImplementation(libs.junit.jupiter.api)
     testRuntimeOnly(libs.junit.jupiter.engine)
+    // SLF4J
+    implementation(libs.slf4j.api)
+    implementation(libs.slf4j.simple)
+    testImplementation(libs.slf4j.simple)
     // Coroutines
     testImplementation(libs.kotlinx.coroutines.test)
     // Turbine

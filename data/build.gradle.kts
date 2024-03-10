@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.android.library)
