@@ -133,7 +133,8 @@ jobs:
     - name: Download APK from build
       uses: actions/download-artifact@v4
       with:
-        name: apk
+        name: app-debug.apk
+        path: apk
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -149,7 +150,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./apk/app-debug.apk
+        asset_path: apk/app-debug.apk
         asset_name: ${{ github.event.repository.name }}.apk
         asset_content_type: application/zip
         
