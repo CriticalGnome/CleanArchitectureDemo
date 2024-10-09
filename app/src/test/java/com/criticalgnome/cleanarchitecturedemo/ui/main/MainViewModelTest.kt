@@ -1,6 +1,6 @@
 package com.criticalgnome.cleanarchitecturedemo.ui.main
 
-import app.cash.turbine.testIn
+import app.cash.turbine.turbineScope
 import com.criticalgnome.cleanarchitecturedemo.TestDispatcherProvider
 import com.criticalgnome.cleanarchitecturedemo.ui.main.MainContract.ViewState.ErrorHandled
 import com.criticalgnome.cleanarchitecturedemo.ui.main.MainContract.ViewState.ExceptionHandled
@@ -53,12 +53,14 @@ class MainViewModelTest {
         coEvery { getPostsUseCase() } returns Success(listOf(post))
 
         runTest {
-            // when
-            sut.getPosts()
-            val state = sut.viewState.testIn(testScope).awaitItem()
-            // then
-            assertTrue(state is PostsLoaded)
-            assertEquals(listOf(post), (state as PostsLoaded).posts)
+            turbineScope {
+                // when
+                sut.getPosts()
+                val state = sut.viewState.testIn(testScope).awaitItem()
+                // then
+                assertTrue(state is PostsLoaded)
+                assertEquals(listOf(post), (state as PostsLoaded).posts)
+            }
         }
         coVerify { getPostsUseCase() }
     }
@@ -70,14 +72,16 @@ class MainViewModelTest {
         coEvery { getPostsUseCase() } returns Error(errorCode, errorMessage)
 
         runTest {
-            // when
-            sut.getPosts()
-            val state = sut.viewState.testIn(testScope).awaitItem()
-            // then
-            assertTrue(state is ErrorHandled)
-            val error = state as ErrorHandled
-            assertEquals(errorCode, error.code)
-            assertEquals(errorMessage, error.message)
+            turbineScope {
+                // when
+                sut.getPosts()
+                val state = sut.viewState.testIn(testScope).awaitItem()
+                // then
+                assertTrue(state is ErrorHandled)
+                val error = state as ErrorHandled
+                assertEquals(errorCode, error.code)
+                assertEquals(errorMessage, error.message)
+            }
         }
         coVerify { getPostsUseCase() }
     }
@@ -89,12 +93,14 @@ class MainViewModelTest {
         coEvery { getPostsUseCase() } returns Exception(throwable)
 
         runTest {
-            // when
-            sut.getPosts()
-            val state = sut.viewState.testIn(testScope).awaitItem()
-            // then
-            assertTrue(state is ExceptionHandled)
-            assertEquals(throwable, (state as ExceptionHandled).throwable)
+            turbineScope {
+                // when
+                sut.getPosts()
+                val state = sut.viewState.testIn(testScope).awaitItem()
+                // then
+                assertTrue(state is ExceptionHandled)
+                assertEquals(throwable, (state as ExceptionHandled).throwable)
+            }
         }
         coVerify { getPostsUseCase() }
     }
