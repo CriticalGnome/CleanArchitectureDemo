@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.criticalgnome.cleanarchitecturedemo.databinding.ActivityMainBinding
 import com.criticalgnome.cleanarchitecturedemo.databinding.ItemMainBinding
 import com.criticalgnome.cleanarchitecturedemo.ui.adapter.dsl.model
@@ -13,6 +15,7 @@ import com.criticalgnome.cleanarchitecturedemo.ui.main.MainContract.ViewState.*
 import com.criticalgnome.domain.entity.PostModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -35,13 +38,15 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.viewState.collectLatest { state ->
-                when (state) {
-                    is PostsLoaded -> binding.mainRecycler.adapter?.model = state.posts
-                    is ErrorHandled -> {}
-                    is ExceptionHandled -> {}
-                    null -> {}
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.viewState.collectLatest { state ->
+                    when (state) {
+                        is PostsLoaded -> binding.mainRecycler.adapter?.model = state.posts
+                        is ErrorHandled -> {}
+                        is ExceptionHandled -> {}
+                        null -> {}
+                    }
                 }
             }
         }
